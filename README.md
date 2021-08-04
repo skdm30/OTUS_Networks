@@ -24,7 +24,7 @@ no ip domain-lookup
 hostname S1
 service password-encryption
 enable secret class
-banner motd #
+banner motd #Unauthorized access is strictly prohibited.
   #
 
 ```
