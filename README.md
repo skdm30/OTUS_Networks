@@ -29,4 +29,5 @@ banner motd #Unauthorized access is strictly prohibited.
 
 ```
 Настраиваем IP-адресс для ПК
-![](config pc.png)
+![](config_pc.png)
+3. В результате работы получаем итоговую [конфигурацию](config)
