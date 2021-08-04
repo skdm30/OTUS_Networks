@@ -17,4 +17,4 @@
     - Диапазон значений, отображаемых в VTY-линиях 0-15;
     - IP-адрес сети VLAN1 не назначен, интерфейс отключен.
 2. После создания сети в Cisko Packet Tracer получаем 
-    ![Image alt](https://github.com/{skdm30}/{OUS_Networks}/raw/{branch}/{path}/схема сети.png)
+    ![Image alt](https://github.com/skdm30/OUS_Networks/raw/branch/path/схема сети.png)
