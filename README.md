@@ -50,9 +50,8 @@ i)Изучим параметры сети VLAN
 Относится к типу ENET????
 j)
    
-2. После создания сети в Cisko Packet Tracer получаем: 
-![](network.png)
-Настраеваем базовые параметры коммутатора
+2.1 Настраеваем базовые параметры коммутатора
+a)В режиме глобальной конфигурации выполним следующие команды
  ```
 no ip domain-lookup
 hostname S1
@@ -61,6 +60,7 @@ enable secret class
 banner motd #Unauthorized access is strictly prohibited.
   #
  ```
+b)  
 Настраиваем IP-адресс для ПК
 ![](config_pc.png)
 
