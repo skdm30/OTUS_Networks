@@ -138,3 +138,14 @@ S1#
 ![](ping.png)
 3.3 Возможность доступа к удаленному управлению коммутатором с помощью Telnet так же проверена
     ![](Telnet.png)
+    Сохраним конфигурацию
+```
+S1#copy 
+S1#copy r
+S1#copy running-config st
+S1#copy running-config startup-config 
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+S1#
+```
