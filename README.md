@@ -53,14 +53,76 @@ j)
 2.1 Настраеваем базовые параметры коммутатора
 a)В режиме глобальной конфигурации выполним следующие команды
  ```
-no ip domain-lookup
+no ip domain-lookup   
 hostname S1
 service password-encryption
 enable secret class
 banner motd #Unauthorized access is strictly prohibited.
   #
  ```
-b)  
+Тут мы запретили поиск в DNS, задали имя коммутатора, включиди шифрование пароля, задали пароль для привелигированного режима, задали сообщение дня.
+b)Назначим IP-адресс интерфейсу SVI
+Так как в методических указаниях даны рекомендации для административной VLAN, создадим VLAN 30 и сделаем ее административной.
+```
+S1(config)#interface vlan 30
+S1(config-if)#
+%LINK-5-CHANGED: Interface Vlan30, changed state to up
+
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#no sh
+S1(config-if)#no shutdown 
+S1(config-if)#exit
+S1(config)#in
+S1(config)#interface ra
+S1(config)#interface range f0/1 - 24
+S1(config-if-range)#swi
+S1(config-if-range)#switchport ac
+S1(config-if-range)#switchport access vlan 30
+S1(config-if-range)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan30, changed state to up
+
+S1(config-if-range)#exit
+S1(config)#in
+S1(config)#interface ra
+S1(config)#interface range g0/1 - 2
+S1(config-if-range)#swi
+S1(config-if-range)#switchport ac
+S1(config-if-range)#switchport access vlan 30
+S1(config-if-range)#exit
+S1(config)#exit
+S1#
+```
+с) Ограничим доступ через порт консоли.
+```
+S1# 
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#line con 0
+S1(config-line)#pasw
+S1(config-line)#pass
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#
+S1(config-line)#logg
+S1(config-line)#logging s
+S1(config-line)#logging synchronous 
+S1(config-line)#exit
+S1(config)#
+```
+
+d)Настроим каналы виртуального соединения для удаленного управления (vty)
+```
+S1(config)#
+S1(config)#line vty 0 15
+S1(config-line)#pass
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#end
+S1#
+%SYS-5-CONFIG_I: Configured from console by console
+
+S1#
+```
 Настраиваем IP-адресс для ПК
 ![](config_pc.png)
 
