@@ -7,5 +7,5 @@
 1.1 **Создадим сеть в соответсвии с топологией**
 ![](pic/1.1_topology.png)
 1.2 **Настроим узлы PC**
-![](pic/PC0_setting.png)
+![](pic/PC0_setting.jpg)
 ![](pic/PC1_setting.png)
