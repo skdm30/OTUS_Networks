@@ -75,4 +75,18 @@ R1#
 %SYS-5-CONFIG_I: Configured from console by console
 
 R1#
+```     
+
+***d)*** Убедимся, что локальный адрес связи ихменен на FE80::1
 ```
+R1#show ipv6 interface brief 
+GigabitEthernet0/0/0       [up/up]
+    FE80::1
+    2001:DB8:ACAD:A::1
+GigabitEthernet0/0/1       [up/up]
+    FE80::1
+    2001:DB8:ACAD:1::1
+Vlan1                      [administratively down/down]
+    unassigned
+```
+
