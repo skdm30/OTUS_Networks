@@ -13,5 +13,51 @@
 1.2 ***Настроим коммутатор.***   
 [Конфигурация](config/S1_base_setting) коммуттатора R1.   
 
-2.1 ***Назначим IPv6-адреса интерфейсам Ethernet на R1***
 
+## 2. Ручная настройка IPv6-адресов 
+2.1 ***Назначим IPv6-адреса интерфейсам Ethernet на R1*** 
+
+***a)*** Назначим глобальные индивидуальные IPv6-адреса, указанные в таблице адресации обоим интерфейсам Ethernet на R1.
+``` R1(config)#int
+R1(config)#interface g0/0/0
+R1(config-if)#ipv6 address 2001:db8:acad:a::1/64
+R1(config-if)#no sh
+R1(config-if)#no shutdown 
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+
+R1(config-if)#interface g0/0/1
+R1(config-if)#ipv6 address 2001:db8:acad:1::1/64
+R1(config-if)#no sh
+R1(config-if)#no shutdown 
+
+R1(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+
+R1(config-if)#end
+R1# 
+```   
+
+***b)*** Введем команду show ipv6 interface brief, чтобы проверить, назначен ли каждому интерфейсу корректный индивидуальный IPv6-адрес.    
+```
+R1#show ipv6 interface brief 
+GigabitEthernet0/0/0       [up/up]
+    FE80::2D0:FFFF:FE79:2401
+    2001:DB8:ACAD:A::1
+GigabitEthernet0/0/1       [up/up]
+    FE80::2D0:FFFF:FE79:2402
+    2001:DB8:ACAD:1::1
+Vlan1                      [administratively down/down]
+    unassigned
+R1#
+```   
+
+***с)*** Чтобы обеспечить соответствие локальных адресов канала индивидуальному адресу, вручную введем локальные адреса канала на каждом интерфейсе Ethernet на R1.   
+```
+
+```
