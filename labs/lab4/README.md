@@ -59,5 +59,20 @@ R1#
 
 ***с)*** Чтобы обеспечить соответствие локальных адресов канала индивидуальному адресу, вручную введем локальные адреса канала на каждом интерфейсе Ethernet на R1.   
 ```
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#int
+R1(config)#interface g0/0/0
+R1(config-if)#ip
+R1(config-if)#ipv
+R1(config-if)#ipv6 ad
+R1(config-if)#ipv6 address fe80::1 li
+R1(config-if)#ipv6 address fe80::1 link-local 
+R1(config-if)#interface g0/0/1
+R1(config-if)#ipv6 address fe80::1 link-local 
+R1(config-if)#end
+R1#
+%SYS-5-CONFIG_I: Configured from console by console
 
+R1#
 ```
