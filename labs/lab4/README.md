@@ -108,7 +108,7 @@ R1(config)# exit
 ![](pic/PC1.png     
 Почему PC-B получил глобальный префикс маршрутизации и идентификатор подсети, которые вы настроили на R1?       
 
-2.3 ***Назначим IPv6-адреса интерфейсу управления (SVI) на S1.      
+2.3 ***Назначим IPv6-адреса интерфейсу управления (SVI) на S1.***      
 ***a)*** Назначим адрес IPv6 для S1.        
 ```
 S1#conf t
@@ -127,7 +127,28 @@ S1(config-if)#
 S1(config-if)#ipv6 address fe80::1 lin
 S1(config-if)#ipv6 address fe80::1 link-local 
 S1(config-if)#end       
+```     
+
+***b)*** Проверим правильность назначения IPv6 адресов интерфейсу управления        
 ```
-
-
+S1#show ipv6 interface vlan 1
+Vlan1 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::1
+  No Virtual link-local address(es):
+  Global unicast address(es):
+    2001:DB8:ACAD:1::B, subnet is 2001:DB8:ACAD:1::/64
+  Joined group address(es):
+    FF02::1
+    FF02::1:FF00:1
+    FF02::1:FF00:B
+  MTU is 1500 bytes
+  ICMP error messages limited to one every 100 milliseconds
+  ICMP redirects are enabled
+  ICMP unreachables are sent
+  Output features: Check hwidb
+  ND DAD is enabled, number of DAD attempts: 1
+  ND reachable time is 30000 milliseconds
+  ND NS retransmit interval is 1000 milliseconds
+S1#
+```
 
