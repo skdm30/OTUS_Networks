@@ -90,4 +90,35 @@ R1#
 Конфигурацию можно посмотреть [здесь](config/base_setting_S1)		
 
 
-#### 3.2 Настроим основные параметры коммутатора.
+#### 3.2 Настроим коммутатор для соединения по протоколу SSH.		
+***a)*** Имя устройство было задано при начальной настройке.		
+***b)*** Зададим имя домена для устройства.
+```
+S1(config)#ip domain-name cisco.com
+```
+***c)*** Создадим ключ шифрования с указанием его длины.
+```
+S1(config)#crypto key generate rsa
+The name for the keys will be: S1.cisco.com
+Choose the size of the key modulus in the range of 360 to 2048 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 512
+% Generating 512 bit RSA keys, keys will be non-exportable...[OK]
+
+S1(config)#
+```
+***d)*** Создадим имя пользователя в локальной базе учетных записей:		
+```
+R1(config)#username admin privilege 15 secret Adm1nP@55
+```
+***e)*** Активируем протоколы Telnet и SSH на линиях VTY:	
+```
+S1(config-line)#transport input ssh
+S1(config-line)#transport input telnet
+```
+***f)*** Изменим способ входа в систему так, чтобы использовалась проверка пользователей по локальной базе учетных записей:	
+```	
+R1(config-line)#login local			
+```
