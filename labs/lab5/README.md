@@ -78,12 +78,16 @@ R1(config-line)#login local
 
 #### 2.5 Сохраним текущую конфигурацию.		
 ```
+
 R1#copy running-config startup-config 
 Destination filename [startup-config]? 
 Building configuration...
 [OK]
 R1#	
 ```
+
+#### 2.6 Установим соединение с маршрутизатором по протоколу SSH.		
+![](pic/ssh_R1.png) 
 
 ### 3. Настройка коммутатора для доступа по протоколу SSH   	
 #### 3.1 Настроим основные параметры коммутатора.		
@@ -121,4 +125,8 @@ S1(config-line)#transport input telnet
 ***f)*** Изменим способ входа в систему так, чтобы использовалась проверка пользователей по локальной базе учетных записей:	
 ```	
 R1(config-line)#login local			
+
 ```
+
+#### 3.3 Установим соединение с маршрутизатором по протоколу SSH.		
+![](pic/ssh_S1.png) 
