@@ -70,3 +70,11 @@ R1(config-line)#transport input tel
 R1(config-line)#transport input telnet 
 R1(config-line)#
 ```  
+
+***b)*** Изменим способ входа в систему так, чтобы использовалась проверка пользователей по локальной базе учетных записей:	
+
+```	
+R1(config-line)#login local	
+```		
+
+#### 2.4 Активируем протокол SSH на линиях VTY
