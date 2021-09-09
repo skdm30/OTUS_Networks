@@ -94,6 +94,40 @@ FF02::1
 FF02::1:FF00:1      
 
 
-2.2 ***Шаг 2. Активируйте IPv6-маршрутизацию на R1.***      
-***a)*** В командной строке на PC-B введем команду ipconfig, чтобы получить данные IPv6-адреса, назначенного интерфейсу ПК.     
+2.2 ***Активируйте IPv6-маршрутизацию на R1.***      
+***a)*** В командной строке на PC-1 введем команду ipconfig, чтобы получить данные IPv6-адреса, назначенного интерфейсу ПК.         
+![](pic/PC1.png     
+Видим интерфейсу назаначаен адрес IPv6 LincLocal, который служит для связи внутри локальной сети.       
+***b)*** Активируем IPv6 маршрутизацию на R1.       
+```
+R1 # configure terminal
+R1(config)# ipv6 unicast-routing
+R1(config)# exit        
+```
+***с)*** Проверим данные IPv6 адреса на PC-1        
+![](pic/PC1.png     
+Почему PC-B получил глобальный префикс маршрутизации и идентификатор подсети, которые вы настроили на R1?       
+
+2.3 ***Назначим IPv6-адреса интерфейсу управления (SVI) на S1.      
+***a)*** Назначим адрес IPv6 для S1.        
+```
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#inter
+S1(config)#interface vlan1
+S1(config-if)#ipv6 address 2001:db8:acad:1::b/64
+S1(config-if)#no shu
+S1(config-if)#no shutdown 
+
+S1(config-if)#
+%LINK-5-CHANGED: Interface Vlan1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan1, changed state to up
+
+S1(config-if)#ipv6 address fe80::1 lin
+S1(config-if)#ipv6 address fe80::1 link-local 
+S1(config-if)#end       
+```
+
+
 
