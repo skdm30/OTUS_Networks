@@ -23,4 +23,4 @@
 [здесь](config/base_setting_R1).  
 
 Также провели настройку компьютера PC0 и проверили связь с маршрутизатором R1 c помощью команды ping: 
-![](pic/base setting PC.png)
+![](pic/base_setting_PC.png)
