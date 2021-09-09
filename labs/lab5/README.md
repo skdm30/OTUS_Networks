@@ -130,3 +130,35 @@ R1(config-line)#login local
 
 #### 3.3 Установим соединение с маршрутизатором по протоколу SSH.		
 ![](pic/ssh_S1.png) 
+
+
+### 4. Настройка протокола SSH с использованием интерфейса командной строки (CLI) коммутатора
+```
+S1#ssh -l admin 192.168.1.1
+
+Password: 
+% Login invalid
+
+
+Password: 
+
+Unauthorized access is strictly prohibited. 
+
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#
+S1#
+S1#
+[Resuming connection 1 to 192.168.1.1 ... ]
+
+R1(config)#exit
+R1#exit
+
+[Connection to 192.168.1.1 closed by foreign host]
+S1#
+```
