@@ -100,7 +100,7 @@ R1#
 ```
 S1(config)#ip domain-name cisco.com
 ```
-***c)*** Создадим ключ шифрования с указанием его длины.
+***c)*** Создадим ключ шифрования с указанием его длины, а также применим версию 2 для SSH.
 ```
 S1(config)#crypto key generate rsa
 The name for the keys will be: S1.cisco.com
@@ -108,9 +108,31 @@ Choose the size of the key modulus in the range of 360 to 2048 for your
   General Purpose Keys. Choosing a key modulus greater than 512 may take
   a few minutes.
 
-How many bits in the modulus [512]: 512
-% Generating 512 bit RSA keys, keys will be non-exportable...[OK]
-
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+S1(config)#ip ?
+  access-list      Named access-list
+  arp              IP ARP global configuration
+  default-gateway  Specify default gateway (if not routing IP)
+  dhcp             Configure DHCP server and relay parameters
+  domain           IP DNS Resolver
+  domain-lookup    Enable IP Domain Name System hostname translation
+  domain-name      Define the default domain name
+  ftp              FTP configuration commands
+  host             Add an entry to the ip hostname table
+  name-server      Specify address of name server to use
+  scp              Scp commands
+  ssh              Configure ssh options
+S1(config)#ip s
+S1(config)#ip ss
+S1(config)#ip ssh ?
+  authentication-retries  Specify number of authentication retries
+  time-out                Specify SSH time-out interval
+  version                 Specify protocol version to be supported
+S1(config)#ip ssh ve
+S1(config)#ip ssh version ?
+  <1-2>  Protocol version
+S1(config)#ip ssh version 2
 S1(config)#
 ```
 ***d)*** Создадим имя пользователя в локальной базе учетных записей:		
