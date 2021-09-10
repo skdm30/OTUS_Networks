@@ -35,17 +35,36 @@
 R1(config)#ip domain-name cisco.com 
 ``` 
 
-#### 2.2 Создадим ключ шифрования с указанием его длины.  
+#### 2.2 Создадим ключ шифрования с указанием его длины и укажем версию SSH
 ```
-R1(config)#crypto key generate rsa 
+R1(config)#crypto key ?
+  generate  Generate new keys
+  zeroize   Remove keys
+R1(config)#crypto key z
+R1(config)#crypto key zeroize rsa
+% All RSA keys will be removed.
+% All router certs issued using these keys will also be removed.
+Do you really want to remove these keys? [yes/no]: y
+R1(config)#cr
+*Mar 2 19:38:17.218: %SSH-5-DISABLED: SSH 1.5 has been disabled
+R1(config)#crypto k
+R1(config)#crypto key ge
+R1(config)#crypto key generate rsa
 The name for the keys will be: R1.cisco.com
 Choose the size of the key modulus in the range of 360 to 2048 for your
   General Purpose Keys. Choosing a key modulus greater than 512 may take
   a few minutes.
 
-How many bits in the modulus [512]: 512
-% Generating 512 bit RSA keys, keys will be non-exportable...[OK]
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
 
+R1(config)#
+R1(config)#ip ssh ?
+  authentication-retries  Specify number of authentication retries
+  time-out                Specify SSH time-out interval
+  version                 Specify protocol version to be supported
+R1(config)#ip ssh ver
+R1(config)#ip ssh version 2
 R1(config)#
 ```  
 #### 2.3 Создадим имя пользователя в локальной базе учетных записей.  
