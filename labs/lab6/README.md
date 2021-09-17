@@ -117,3 +117,12 @@ S1(config-if)#switchport trunk allowed vlan 10,20,30,1000
  ***Что произойдет, если G0/0/1 на R1 будет отключен?***    
  *Не будет линка*
 
+### 4. Настройка маршрутизации между сетями VLAN    
+Настроим подинтерфейсы для каждой VLAN, как указано в таблице     
+```
+R1(config)#interface g0/0/1.10
+R1(config-subif)#encapsulation dot1Q 10
+R1(config-subif)#ip ad
+R1(config-subif)#ip address 192.168.10.1 255.255.255.0
+R1(config-subif)#exit   
+```   
