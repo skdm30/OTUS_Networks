@@ -52,4 +52,43 @@
 Настройка базовых конфигураций [R1](config/base_setting_R1), [S1](config/base_setting_S1), [S2](config/base_setting_S1).    
 Настройка PC-A и PC-B:    
 
-![](pic/base_setting_PC.png)
+![](pic/base_setting_PC.png)    
+
+### 2. Создание сети и настройка основных параметров устройств    
+#### 2.1 Создание сети VLAN на коммутаторах   
+***a)*** Создадим и назовем необходимые VLAN на каждом коммутаторе в соответствие с таблицей. Ниже приведен пример создания vlan 20
+```
+S1(config)#vlan 20  
+S1(config-vlan)#name SALES    
+```   
+
+***b)*** Настроим интерфейс управления и шлюз по умолчанию на каждом коммутаторе. 
+Пример для S1:    
+```
+S1(config)#vlan 10  
+S1(config-vlan)#name SVI  
+S1(config)#interface vlan 10
+S1(config-if)#ip address 192.168.10.11 255.255.255.0    
+S1(config)#ip default-gateway 192.168.10.1
+```   
+***c)*** Назначим все неиспользуемые порты коммутатора VLAN Parking_Lot, настроим их для статического режима доступа и административно деактивируем их.   
+Пример для S1:
+```   
+S1(config)#interface range f0/2-4,f0/7-24,g0/1-2 
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 999  
+S1(config-if-range)#shutdown    
+```
+
+#### 2.2 Назначьте сети VLAN соответствующим интерфейсам коммутатора    
+***a)*** Назначим используемые порты соответствующей VLAN (указанной в таблице VLAN выше) и настроим их для режима статического доступа.    
+Пример для S1:    
+```
+S1(config)#interface f0/6
+S1(config-if-range)#switchport mode access
+S1(config-if-range)#switchport access vlan 20  
+S1(config-if-range)#no shutdown     
+``` 
+***b)*** Убедимся, что VLAN назначены на правильные интерфейсы.     
+Используем команду *show vlan* на  [S1](config/setting_S1) и на [S2](config/setting_S2)
+
