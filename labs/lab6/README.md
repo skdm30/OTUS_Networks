@@ -133,6 +133,7 @@ R1(config-subif)#exit
 ***b)***	Отправьте эхо-запрос с PC-A на PC-B.
 ***c)***	Отправьте команду ping с компьютера PC-A на коммутатор S2.    
 Результат:    
-![](pic/test.png)   
+![](pic/test.png)     
+![](pic/test3.png)
 ![](pic/test2.png)
 
