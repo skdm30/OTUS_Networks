@@ -90,5 +90,5 @@ S1(config-if-range)#switchport access vlan 20
 S1(config-if-range)#no shutdown     
 ``` 
 ***b)*** Убедимся, что VLAN назначены на правильные интерфейсы.     
-Используем команду *show vlan* на  [S1](config/setting_S1) и на [S2](config/setting_S2)
+Используем команду *show vlan* на  [S1](config/VLAN_S1) и на [S2](config/VLAN_S2)
 
