@@ -90,5 +90,28 @@ S1(config-if-range)#switchport access vlan 20
 S1(config-if-range)#no shutdown     
 ``` 
 ***b)*** Убедимся, что VLAN назначены на правильные интерфейсы.     
-Используем команду *show vlan* на  [S1](config/VLAN_S1) и на [S2](config/VLAN_S2)
+Используем команду *show vlan* на  [S1](config/VLAN_S1) и на [S2](config/VLAN_S2)   
+
+### 3. Конфигурация магистрального канала стандарта 802.1Q между коммутаторами    
+#### 3.1  Вручную настроим магистральный интерфейс F0/1 на коммутаторах S1 и S2.    
+***a)*** Настроим статический транкинг на интерфейсе F0/1 для обоих коммутаторов.     
+```
+S1(config)#interface f0/1
+S1(config-if)#switchport mode trunk    
+```
+***b)*** Установим native VLAN 1000 на обоих коммутаторах    
+```
+S1(config)#switchport trunk native vlan 1000  
+```
+***c)*** Укажем, что VLAN 10, 20, 30 и 1000 могут проходить по транку   
+```
+S1(config)#interface f0/1
+S1(config-if)#switchport trunk allowed vlan 10,20,30,1000   
+```
+***d)***  Проверим транки, native VLAN и разрешенные VLAN через транк.    
+Используем команду *show interfaces trunk* на  [S1](config/TRUNK_S1) и на [S2](config/TRUNK_S2) 
+#### 3.2  Вручную настроим магистральный интерфейс F0/5 на коммутаторе S1    
+***a)***    
+***b)***    
+***c)***
 
