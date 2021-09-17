@@ -126,3 +126,4 @@ R1(config-subif)#ip ad
 R1(config-subif)#ip address 192.168.10.1 255.255.255.0
 R1(config-subif)#exit   
 ```   
+Полную конфигурацию устройства можно посмотреть [здесь](config/config_R1)
