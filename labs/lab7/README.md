@@ -26,7 +26,27 @@
 
 После этого проверили связь между коммутаторами.        
 ![](pic/ping_S1.png)        
-![](pic/ping_S2.png)        
-![](pic/ping_S3.png)
+![](pic/ping_S2.png)            
+
+### 2. Определение корневого моста.    
+Отключим порты на коммутаторах      
+``` 
+S1(config)#interface range fa0/1-4
+S1(config-if-range)#shutdown        
+```     
+
+Настроим подключенные порты в качестве транковых        
+```     
+S1(config-if-range)#switchport mode trunk 
+S1(config-if-range)#switchport trunk allowed vlan 1     
+```     
+
+Включим порты F0/2 и F0/4 на всех коммутаторах      
+``` 
+S1(config)#interface range fa0/2,4
+S1(config-if-range)#shutdown        
+``` 
+
+
 
 
