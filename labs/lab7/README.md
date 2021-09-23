@@ -20,4 +20,13 @@
 ## Ход выполнения работы    
 ### 1. Настройка основных параметров устройств    
 Создали сеть согласно заданию:  
-![](pic/topology.png) 
+![](pic/topology.png)       
+
+Произвели базовую конфигурацию коммутаторов [S1](config/base_setting_S1), [S2](config/base_setting_S2), [S3](config/base_setting_S3).       
+
+После этого проверили связь между коммутаторами.        
+![](pic/ping_S1.png)        
+![](pic/ping_S2.png)        
+![](pic/ping_S3.png)
+
+
