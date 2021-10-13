@@ -36,11 +36,34 @@
 Для выполнения работы создадим сеть согласно топологии    
 ![](pic/network.png)    
 
+С помощью команды *ip route* настроим статические маршруты
 Настройка базовых конфигураций [R1](config/base_setting_R1), [R2](config/base_setting_R2), 
-Настройка PC-A и PC-B заключается в включении автоматического получения IP адреса.    
+Настройка PC-A и PC-B заключается в включении автоматического получения IP адреса.  
+Для проверки статического маршрута пропингуем с R1 адрес порта G0/0/1 на R2:
+![](pic/ping1.png)    
 
- 
 
-  
-  
+### 2. Проверка назначения адреса SLAAC от R1     
+С помощью команды *ipconfig*, выполненой на PC-A, мы можем увидеть, что компьтеру присвоен адресс из сети 2001:db8:1::/64   
+![](pic/PC-A.png)     
+
+### 3. Настройка и проверка сервера DHCPv6 на R1    
+Выполним настройку DHCPv6 сервера, чтобы PC-A мог получать информацию о DNS-сервере и домене.
+```   
+R1(config)#ipv6 dhcp pool R1-STATELESS
+R1(config-dhcpv6)#dns-server 2001:db8:acad::1
+R1(config-dhcpv6)#domain-name STATELESS.com
+R1(config-dhcpv6)#exit
+R1(config)#interface g0/0/1
+R1(config-if)#ipv6 nd other-config-flag
+R1(config-if)#ipv6 dhcp server R1-STATELESS  
+```     
+
+Теперь можем сравнить выполнение команды *ipconfig /all* до и после настройки:    
+![](pic/PC-A_1.png)   
+![](pic/PC-A_2.png)   
+
+И протестируем связь PC-A  с интерфейсом g0/0/1 R2:   
+![](pic/PC-A_3.png)
+
 
