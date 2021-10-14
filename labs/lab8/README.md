@@ -65,5 +65,32 @@ R1(config-if)#ipv6 dhcp server R1-STATELESS
 
 И протестируем связь PC-A  с интерфейсом g0/0/1 R2:   
 ![](pic/PC-A_3.png)
+    
+### 4. Настройка сервера DHCPv6 с сохранением состояния на R1       
+Настроим R1 для ответа на запросы DHCPv6 от локальной сети на R2.     
 
+Создадим пул DHCPv6 на R1 для сети 2001:db8:acad:3:aaa::/80. Это предоставит адреса локальной сети, подключенной к интерфейсу G0/0/1 на R2. В составе пула задайте DNS-сервер 2001:db8:acad: :254 и зададим доменное имя STATEFUL.com.
+```
+R1(config)# ipv6 dhcp pool R2-STATEFUL
+R1(config-dhcp)# address prefix 2001:db8:acad:3:aaa::/80
+R1(config-dhcp)# dns-server 2001:db8:acad::254
+R1(config-dhcp)# domain-name STATEFUL.com   
+```
+
+Назначим только что созданный пул DHCPv6 интерфейсу g0/0/0 на R1.   
+```
+R1(config)# interface g0/0/0
+R1(config-if)# ipv6 dhcp server R2-STATEFUL   
+```   
+
+### 5. Настройка и проверка ретрансляции DHCPv6 на R2.    
+Ретрансляцию настраиваем с помощью команды *ipv6 dhcp relay* на интерфейсе G0/0/1 
+```
+R2(config) # interface g0/0/1
+R2(config-if)# ipv6 nd managed-config-flag
+R2(config-if)# ipv6 dhcp relay destination 2001:db8:acad:2::1 g0/0/0
+
+
+
+    
 
