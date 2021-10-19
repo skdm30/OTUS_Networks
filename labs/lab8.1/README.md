@@ -54,5 +54,38 @@ R1(dhcp-config)#network 192.168.1.96 255.255.255.240
 R1(dhcp-config)#default-router 192.168.1.97
 R1(dhcp-config)#domain-name ccna-lab.com    
 ```
+Посмотрим сведения о пулах с помощью команды *show ip dhcp pool*
+```   
+R1#show ip dhcp pool
 
+Pool VLAN100 :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 62
+ Leased addresses               : 0
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.1.1          192.168.1.1      - 192.168.1.62      0    / 2     / 62
+
+Pool R2_Client_LAN :
+ Utilization mark (high/low)    : 100 / 0
+ Subnet size (first/next)       : 0 / 0 
+ Total addresses                : 14
+ Leased addresses               : 0
+ Excluded addresses             : 2
+ Pending event                  : none
+
+ 1 subnet is currently in the pool
+ Current index        IP address range                    Leased/Excluded/Total
+ 192.168.1.97         192.168.1.97     - 192.168.1.110     0    / 2     / 14    
+ ```    
+ На компютере PC-A выполним команду *ipconfig* и посмотрим, получил ли он адрес.  
+ Затем пропингуем порт G0/0/1 R2.
+ ![](pic/ping_PC-A.png)   
+ 
+ ### 3. Настройка и проверка DHCP-ретрансляции на R2    
+ 
 
