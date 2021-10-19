@@ -92,8 +92,7 @@ Pool R2_Client_LAN :
  R2(config-if)#ip helper-address 10.0.0.1 
  ```    
  На компьютере PC-B выполним команду *ipconfig*, а затем проверим подключение к компьютеру PC-A 
- ![](pic/ping_PC-B.png)     
- 
+ ![](pic/ping_PC-B.png)   
  Выполним *show ip dhcp binding* в R1 для проверки назначений адресов в DHCP    
  ```  
  R1#show ip dhcp binding 
