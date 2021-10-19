@@ -32,7 +32,27 @@
 Порты f0/6 на S1 и f0/18 на S2 настроим в режиме доступа.   
 Порт f0/5 на S1 настроим в качестве транка 802.1Q   
 Конфиги коммутаторов [S1](config/config_S1) и [S2](config/config_S2) после произведенных настроек.  
-![](pic/int_S1.png)   ![](pic/int_S2.png)
+![](pic/int_S1.png)   ![](pic/int_S2.png)   
 
+### 2. Настройка и проверка двух серверов DHCPv4 на R1    
+**Настроим R1 с пулами DHCP для двух подсетей**   
+Исключии первые пять используемых адресов из каждого пула адресов.
+```
+R1(config)#ip dhcp excluded-address 192.168.1.1 192.168.1.5
+R1(config)#ip dhcp excluded-address 192.168.1.97 192.168.1.101    
+```   
+Создадим пулы DHCP, в качестве имени домена укажем CCNA-lab.com, настроим шлюз по умолчанию.  
+```   
+R1(config)#ip dhcp pool VLAN100 
+R1(dhcp-config)#network 192.168.1.0 255.255.255.192
+R1(dhcp-config)#default-router 192.168.1.1
+R1(dhcp-config)#domain-name ccna-lab.com    
+```   
+```   
+R1(config)#ip dhcp pool R2_Client_LAN 
+R1(dhcp-config)#network 192.168.1.96 255.255.255.240
+R1(dhcp-config)#default-router 192.168.1.97
+R1(dhcp-config)#domain-name ccna-lab.com    
+```
 
 
