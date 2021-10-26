@@ -216,4 +216,17 @@ Security Violation Count   : 0
 S1#
 ```
 
+``` 
+S1#show port-security address 
+			Secure Mac Address Table
+-------------------------------------------------------------------------------
+Vlan	Mac Address	Type			Ports		Remaining Age
+								(mins)
+----	-----------	----			-----		-------------
+10	0090.2BC6.4C44	DynamicConfigured	FastEthernet0/6		-
+------------------------------------------------------------------------------
+Total Addresses in System (excluding one mac per port)     : 0
+Max Addresses limit in System (excluding one mac per port) : 1024
+S1#
+``` 
 
