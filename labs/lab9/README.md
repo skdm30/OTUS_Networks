@@ -67,5 +67,109 @@ VLAN Name                             Status    Ports
 1005 trnet-default                    active    
 S2#
 ```
+**Часть 3. Настройки безопасности коммутатора.**    
+Настроим все магистральные порты Fa0/1 на обоих коммутаторах для использования VLAN 333 в качестве native VLAN. 
+``` 
+S1#show interfaces trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       on           802.1q         trunking      333
 
+Port        Vlans allowed on trunk
+Fa0/1       1,10,333,999
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10,333,999
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10,333,999
+
+S1#
+```   
+```
+S2#show int trunk 
+Port        Mode         Encapsulation  Status        Native vlan
+Fa0/1       on           802.1q         trunking      333
+
+Port        Vlans allowed on trunk
+Fa0/1       1,10,333,999
+
+Port        Vlans allowed and active in management domain
+Fa0/1       1,10,333,999
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Fa0/1       1,10,333,999
+
+S2#
+```   
+***Отключим согласование DTP f0/1 на коммутаторах:***
+```
+S1(config)#int f0/1
+S1(config-if)#sw
+S1(config-if)#switchport n
+S1(config-if)#switchport nonegotiate 
+```
+***Настроим порты доступа***  
+На S1 настроим f0/5, f0/6 и свяжем их с VLAN 10.  
+На S2 портом доступа сделаем f0/18 и также свяжем с VLAN 10.  
+На обоих коммутаторах все неиспользуемые порты переместим в VLAN 999 и отклюим их:    
+```
+S1#show interfaces status 
+Port      Name               Status       Vlan       Duplex  Speed Type
+Fa0/1                        connected    1          auto    auto  10/100BaseTX
+Fa0/2                        disabled 999        auto    auto  10/100BaseTX
+Fa0/3                        disabled 999        auto    auto  10/100BaseTX
+Fa0/4                        disabled 999        auto    auto  10/100BaseTX
+Fa0/5                        connected    10         auto    auto  10/100BaseTX
+Fa0/6                        connected    10         auto    auto  10/100BaseTX
+Fa0/7                        disabled 999        auto    auto  10/100BaseTX
+Fa0/8                        disabled 999        auto    auto  10/100BaseTX
+Fa0/9                        disabled 999        auto    auto  10/100BaseTX
+Fa0/10                       disabled 999        auto    auto  10/100BaseTX
+Fa0/11                       disabled 999        auto    auto  10/100BaseTX
+Fa0/12                       disabled 999        auto    auto  10/100BaseTX
+Fa0/13                       disabled 999        auto    auto  10/100BaseTX
+Fa0/14                       disabled 999        auto    auto  10/100BaseTX
+Fa0/15                       disabled 999        auto    auto  10/100BaseTX
+Fa0/16                       disabled 999        auto    auto  10/100BaseTX
+Fa0/17                       disabled 999        auto    auto  10/100BaseTX
+Fa0/18                       disabled 999        auto    auto  10/100BaseTX
+Fa0/19                       disabled 999        auto    auto  10/100BaseTX
+Fa0/20                       disabled 999        auto    auto  10/100BaseTX
+Fa0/21                       disabled 999        auto    auto  10/100BaseTX
+Fa0/22                       disabled 999        auto    auto  10/100BaseTX
+Fa0/23                       disabled 999        auto    auto  10/100BaseTX
+Fa0/24                       disabled 999        auto    auto  10/100BaseTX
+Gig0/1                       disabled 999        auto    auto  10/100BaseTX
+Gig0/2                       disabled 999        auto    auto  10/100BaseTX
+``` 
+```
+S2#show interfaces status 
+Port      Name               Status       Vlan       Duplex  Speed Type
+Fa0/1                        connected    1          auto    auto  10/100BaseTX
+Fa0/2                        disabled 999        auto    auto  10/100BaseTX
+Fa0/3                        disabled 999        auto    auto  10/100BaseTX
+Fa0/4                        disabled 999        auto    auto  10/100BaseTX
+Fa0/5                        disabled 999        auto    auto  10/100BaseTX
+Fa0/6                        disabled 999        auto    auto  10/100BaseTX
+Fa0/7                        disabled 999        auto    auto  10/100BaseTX
+Fa0/8                        disabled 999        auto    auto  10/100BaseTX
+Fa0/9                        disabled 999        auto    auto  10/100BaseTX
+Fa0/10                       disabled 999        auto    auto  10/100BaseTX
+Fa0/11                       disabled 999        auto    auto  10/100BaseTX
+Fa0/12                       disabled 999        auto    auto  10/100BaseTX
+Fa0/13                       disabled 999        auto    auto  10/100BaseTX
+Fa0/14                       disabled 999        auto    auto  10/100BaseTX
+Fa0/15                       disabled 999        auto    auto  10/100BaseTX
+Fa0/16                       disabled 999        auto    auto  10/100BaseTX
+Fa0/17                       disabled 999        auto    auto  10/100BaseTX
+Fa0/18                       disabled 10         auto    auto  10/100BaseTX
+Fa0/19                       disabled 999        auto    auto  10/100BaseTX
+Fa0/20                       disabled 999        auto    auto  10/100BaseTX
+Fa0/21                       disabled 999        auto    auto  10/100BaseTX
+Fa0/22                       disabled 999        auto    auto  10/100BaseTX
+Fa0/23                       disabled 999        auto    auto  10/100BaseTX
+Fa0/24                       disabled 999        auto    auto  10/100BaseTX
+Gig0/1                       disabled 999        auto    auto  10/100BaseTX
+Gig0/2                       disabled 999        auto    auto  10/100BaseTX
+```
 
