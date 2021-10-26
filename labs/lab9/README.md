@@ -143,7 +143,7 @@ Gig0/1                       disabled 999        auto    auto  10/100BaseTX
 Gig0/2                       disabled 999        auto    auto  10/100BaseTX
 ``` 
 ```
-S2#show interfaces status 
+S2(config-if)#do sh in sta
 Port      Name               Status       Vlan       Duplex  Speed Type
 Fa0/1                        connected    1          auto    auto  10/100BaseTX
 Fa0/2                        disabled 999        auto    auto  10/100BaseTX
@@ -162,7 +162,7 @@ Fa0/14                       disabled 999        auto    auto  10/100BaseTX
 Fa0/15                       disabled 999        auto    auto  10/100BaseTX
 Fa0/16                       disabled 999        auto    auto  10/100BaseTX
 Fa0/17                       disabled 999        auto    auto  10/100BaseTX
-Fa0/18                       disabled 10         auto    auto  10/100BaseTX
+Fa0/18                       connected    10         auto    auto  10/100BaseTX
 Fa0/19                       disabled 999        auto    auto  10/100BaseTX
 Fa0/20                       disabled 999        auto    auto  10/100BaseTX
 Fa0/21                       disabled 999        auto    auto  10/100BaseTX
@@ -172,4 +172,44 @@ Fa0/24                       disabled 999        auto    auto  10/100BaseTX
 Gig0/1                       disabled 999        auto    auto  10/100BaseTX
 Gig0/2                       disabled 999        auto    auto  10/100BaseTX
 ```
+***Настроим безопасность портов f0/6 S1, f0/18 S2***    
+На S1 введем команду *show port-security interface f0/6* для просмотра настроек по умолчанию: 
+``` 
+S1#show port-security int f0/6
+Port Security              : Disabled
+Port Status                : Secure-down
+Violation Mode             : Shutdown
+Aging Time                 : 0 mins
+Aging Type                 : Absolute
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 0
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 0000.0000.0000:0
+Security Violation Count   : 0
+S1#
+```   
+На S1 включим защиту порта на F0 / 6 со следующими настройками:
+o	Максимальное количество записей MAC-адресов: 3
+o	Режим безопасности: restrict
+o	Aging time: 60 мин.
+o	Aging type: неактивный    
+``` 
+S1#show port-security int f0/6
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Restrict
+Aging Time                 : 60 mins
+Aging Type                 : Inactivity
+SecureStatic Address Aging : Disabled
+Maximum MAC Addresses      : 3
+Total MAC Addresses        : 0
+Configured MAC Addresses   : 0
+Sticky MAC Addresses       : 0
+Last Source Address:Vlan   : 0000.0000.0000:0
+Security Violation Count   : 0
+S1#
+```
+
 
