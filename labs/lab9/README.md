@@ -191,10 +191,14 @@ Security Violation Count   : 0
 S1#
 ```   
 На S1 включим защиту порта на F0 / 6 со следующими настройками:
-o	Максимальное количество записей MAC-адресов: 3
-o	Режим безопасности: restrict
-o	Aging time: 60 мин.
-o	Aging type: неактивный    
+-	Максимальное количество записей MAC-адресов: 3  
+-	
+-	Режим безопасности: restrict  
+-	
+-	Aging time: 60 мин. 
+-	
+-	Aging type: неактивный      
+-	
 ``` 
 S1#show port-security int f0/6
 Port Security              : Enabled
