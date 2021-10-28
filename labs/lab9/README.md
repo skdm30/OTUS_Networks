@@ -19,9 +19,9 @@ R1#
 ***Настройка и проверка основных параметров коммутатора***    
 Настроим имя хоста, запретим нежелательный поиск в DNS и установим шлюз по умолчанию
 ```
-Switch#hostname S1
-S1#no ip domain-lookup
-S1#ip default-gateway 192.168.10.1    
+Switch(config)#hostname S1
+S1(config)#no ip domain-lookup
+S1(config)#ip default-gateway 192.168.10.1    
 ```   
 
 **Часть 2. Настройка сетей VLAN на коммутатораха**      
@@ -229,4 +229,65 @@ Total Addresses in System (excluding one mac per port)     : 0
 Max Addresses limit in System (excluding one mac per port) : 1024
 S1#
 ``` 
+***Реализуем безопасность DHCP snooping***		
+На S2 включим DHCP snooping и настроим DHCP snooping во VLAN 10
+```	
+S2(config)#ip dhcp snooping
+S2(config-if)#ip dhcp snooping vlan 10
+```	
+Магистральный порт f0/1 настроим как доверенный:	
+```	
+S2(config-if)ip dhcp snooping trust	
+```	
+ Ограничим порт f0/18 пятью DHCP-пакетами в секунду:	
+ ```	
+ S2(config-if)ip dhcp snooping limit rate 5	
+ ```	
+ Для проверки dhcp snooping выполним команду *show ip dhcp snooping*
+ 
+ ```	
+ S2#show ip dhcp snooping 
+Switch DHCP snooping is enabled
+DHCP snooping is configured on following VLANs:
+10
+Insertion of option 82 is enabled
+Option 82 on untrusted port is not allowed
+Verification of hwaddr field is enabled
+Interface                  Trusted    Rate limit (pps)
+-----------------------    -------    ----------------
+FastEthernet0/1            yes        unlimited       
+FastEthernet0/18           no         5          
+```	
+Проверим привязку отслеживания DHCP с помощью команды *show ip dhcp snooping binding*	
+```	
+S2#show ip dhcp snooping binding 
+MacAddress          IpAddress        Lease(sec)  Type           VLAN  Interface
+------------------  ---------------  ----------  -------------  ----  -----------------
+00:D0:FF:06:B8:73   192.168.10.11    0           dhcp-snooping  10    FastEthernet0/18
+Total number of bindings: 1
+S2#
+```
+***Реализация PortFast и BPDU Guard***	
+Настроим PortFast и BPDU на портах доступа на обоих коммутаторах:	
+```	
+S1(config)#int f0/5
+S1(config-if)#spanning-tree portfast
+S1(config-if)# spanning-tree bpduguard enable
+``` 
+Убедимся, что защита BPDU и PortFast включены на соответствующих портах:
+```	
+S1#show spanning-tree int f0/5 detail 
 
+Port 5 (FastEthernet0/5) of VLAN0010 is designated forwarding
+  Port path cost 19, Port priority 128, Port Identifier 128.5
+  Designated root has priority 32778, address 0001.968C.D681
+  Designated bridge has priority 32778, address 0060.3E24.56D8
+  Designated port id is 128.5, designated path cost 19
+  Timers: message age 16, forward delay 0, hold 0
+  Number of transitions to forwarding state: 1
+  The port is in the portfast mode
+  Link type is point-to-point by default
+
+```
+
+Итоговые конфиги  [S1](config/S1) и [S2](config/S2)  
