@@ -290,4 +290,9 @@ Port 5 (FastEthernet0/5) of VLAN0010 is designated forwarding
 
 ```
 
-Итоговые конфиги  [S1](config/S1) и [S2](config/S2)  
+Итоговые конфиги  [S1](config/S1) и [S2](config/S2)  		
+
+***Проверим наличие сквозного ⁪подключения***
+![](pic/PC-A.png) 	
+![](pic/PC-B.png) 	
+На скриншотах видно, что связь между двумя компьютерами работает.
