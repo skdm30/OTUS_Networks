@@ -37,5 +37,7 @@
 Для выполнения работы создадим сеть согласно топологии    
 ![](pic/network.png)    
 
-Настройка базовых конфигураций [R1](config/R1_base_setting),[R2](config/base_setting_R2), [S1](config/S1_base_setting), [S2](config/base_setting_S2).    
-Настройка PC-A и PC-B:    
+Настройка базовых конфигураций  [R1](config/R1_base_setting),[R2](config/base_setting_R2), [S1](config/S1_base_setting), [S2](config/base_setting_S2).    
+  
+### 2. Настройка сетей VLAN на коммутаторах 
+Часть 2 и часть 3 выполнил, осталось описать их тут
