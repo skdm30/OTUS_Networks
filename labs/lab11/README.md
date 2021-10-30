@@ -37,5 +37,5 @@
 Для выполнения работы создадим сеть согласно топологии    
 ![](pic/network.png)    
 
-Настройка базовых конфигураций [R1](config/base_setting_R1), [S1](config/base_setting_S1), [S2](config/base_setting_S1).    
+Настройка базовых конфигураций [R1](config/base_setting_R1),[R2](config/base_setting_R2), [S1](config/base_setting_S1), [S2](config/base_setting_S1).    
 Настройка PC-A и PC-B:    
