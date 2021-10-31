@@ -42,8 +42,29 @@
 ### 2. Настройка сетей VLAN на коммутаторах 
 Создадим VLAN коммутаторах в соответствии с таблицей. Настроим интерфейс управления и шлюз по умолчанию на каждом коммутаторе. Все неиспользуемые порты переместим во VLAN 999 и отключим их.
 ![](pic/vlan_brief_1.png)   
-![](pic/S2_vlan_brief_1.png)  
+![](pic/S2_vlan_brief_1.png)    
+### 3. Настройте транки (магистральные каналы).
 Настроим магистральные порты на коммутаторах  
 ![](pic/trunk_S1.png)   
 ![](pic/trunk_S2.png)     
+### 4. Настройте маршрутизацию.   
+Настроим подинтерфейсы для каждой VLAN согласно таблице.  
+![](pic/R1_brief.png)     
+### 5. Настройте удаленный доступ   
+Настроим доступ по SHH  
+``` 
+R1(config)#username SSHadmin privilege 15 secret $cisco123!
+R1(config)#ip domain-name ccna-lab.com
+R1(config)#crypto key generate rsa
+The name for the keys will be: R1.ccna-lab.com
+Choose the size of the key modulus in the range of 360 to 2048 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
 
+How many bits in the modulus [512]: 1024
+% Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
+R1(config)#ip ssh version 2
+R1(config)#line vty 0 4
+R1(config-line)#transport input telnet ssh
+R1(config-line)#login local
+```
