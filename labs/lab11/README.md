@@ -65,6 +65,52 @@ How many bits in the modulus [512]: 1024
 % Generating 1024 bit RSA keys, keys will be non-exportable...[OK]
 R1(config)#ip ssh version 2
 R1(config)#line vty 0 4
-R1(config-line)#transport input telnet ssh
+R1(config-line)#transport input ssh
 R1(config-line)#login local
-```
+``` 
+
+### 6. Проверка подключения 
+Выполним тесты из задания.  
+![](pic/ping_1_2.png) 
+![](pic/ping_3_4_5.png)
+![](pic/ping_6_7.png) 
+Как видно, все тесты прошли успешно.    
+
+### 7. Настройка и проверка списков контроля доступа (ACL)  
+***Политика 1***  
+Сеть Sales не может использовать SSH в сети Management (но в  другие сети SSH разрешен).  
+``` 
+access-list 110 deny tcp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 eq 22  
+``` 
+***Политика 3***    
+Сеть Sales не может отправлять эхо-запросы ICMP в сети Operations или Management. Разрешены эхо-запросы ICMP к другим адресатам.  
+``` 
+R1(config)#access-list 110 deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo 
+R1(config)#access-list 110 deny icmp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 echo 
+``` 
+***Политика 4***    
+Cеть Operations  не может отправлять ICMP эхозапросы в сеть Sales. Разрешены эхо-запросы ICMP к другим адресатам. 
+``` 
+R1(config)#access-list 120 deny icmp 10.30.0.0 0.0.0.255 10.40.0.0 0.0.0.255 echo 
+``` 
+Введем команду *show access-lists* для просмотра статистики
+``` 
+R1#show access-lists 
+Extended IP access list 110
+    10 deny tcp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 eq 22 (24 match(es))
+    20 deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo (4 match(es))
+    30 deny icmp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 echo (4 match(es))
+    40 permit ip any any (142 match(es))
+Extended IP access list 120
+    10 deny icmp 10.30.0.0 0.0.0.255 10.40.0.0 0.0.0.255 echo (17 match(es))
+    20 permit ip any any (8 match(es))
+
+R1# 
+```   
+
+После создания политик выполним тесты. Результаты выполнения приведены ниже.  
+![](pic/ping_PC-A.png)  
+![](pic/ping_PC-B.png)  
+Результаты соответствуют результатам в методичке. 
+
+Итоговый конфиг [R1](config/R1)
