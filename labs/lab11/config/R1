@@ -1,0 +1,116 @@
+R1#show run
+Building configuration...
+
+Current configuration : 1661 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname R1
+!
+!
+!
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username SSHadmin secret 5 $1$mERr$kym/hWmWrJHQirPTzUhSK0
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+no ip domain-lookup
+ip domain-name ccna-lab.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback1
+ ip address 172.16.1.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1.20
+ encapsulation dot1Q 20
+ ip address 10.20.0.1 255.255.255.0
+!
+interface GigabitEthernet0/0/1.30
+ encapsulation dot1Q 30
+ ip address 10.30.0.1 255.255.255.0
+ ip access-group 120 in
+!
+interface GigabitEthernet0/0/1.40
+ encapsulation dot1Q 40
+ ip address 10.40.0.1 255.255.255.0
+ ip access-group 110 in
+!
+interface GigabitEthernet0/0/1.1000
+ encapsulation dot1Q 1000 native
+ no ip address
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 110 deny tcp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 eq 22
+access-list 110 deny icmp 10.40.0.0 0.0.0.255 10.30.0.0 0.0.0.255 echo
+access-list 110 deny icmp 10.40.0.0 0.0.0.255 10.20.0.0 0.0.0.255 echo
+access-list 110 permit ip any any
+access-list 120 deny icmp 10.30.0.0 0.0.0.255 10.40.0.0 0.0.0.255 echo
+access-list 120 permit ip any any
+!
+banner motd ^CWARRNING!^C
+!
+!
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password 7 0822455D0A16
+ login local
+ transport input ssh
+!
+!
+!
+end
+
