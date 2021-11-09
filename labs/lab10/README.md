@@ -119,7 +119,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/1 ms
 
 R2# 
 ``` 
-
+Итоговые конфиги [R1](config/R1),[R2](config/R2)
 
 
 
