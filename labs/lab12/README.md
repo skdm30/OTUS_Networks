@@ -24,7 +24,7 @@
 Для выполнения работы создадим сеть согласно топологии    
 ![](pic/network.png)    
 
-Настройка базовых конфигураций  [R1](config/R1_base_setting),[R2](config/base_setting_R2), [S1](config/S1_base_setting), [S2](config/base_setting_S2).      
+Настройка базовых конфигураций  [R1](config/R1),[R2](config/R2), [S1](config/S1), [S2](config/S2).      
 
 ### 2. Настройка и проверка NAT для IPv4. 
 ***Шаг 1***
