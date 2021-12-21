@@ -139,5 +139,47 @@ Vlan ID: 1
 Total entries displayed: 2 
 ``` 
 ### 4. Настройка и проверка NTP
- 
+Выведем на экран текущее время на R1: 
+``` 
+R1#show clock detail 
+*0:43:42.2 UTC Mon Mar 1 1993
+Time source is hardware calendar    
+``` 
+Теперь настроим:  
+```
+R1#clock set 20:45:55 DECEMBER 21 2021  
+R1(config)#ntp master 4
+``` 
 
+Выполним *show clock detail* после настройки: 
+```  
+20:48:8.138 UTC Tue Dec 21 2021
+Time source is NTP
+``` 
+Проверим время на S1 и S2:
+``` 
+S1#show clock detail 
+*0:43:32.121 UTC Mon Mar 1 1993
+Time source is hardware calendar  
+``` 
+
+``` 
+S2#show clock detail 
+*0:44:12.121 UTC Mon Mar 1 1993
+Time source is hardware calendar  
+```   
+Настроим сервер NTP на коммутаторах и выполним команду *show clock detail*:
+``` 
+S1(config)#ntp server 10.22.0.1
+S1#show clock detail 
+*22:21:3.279 UTC Tue Dec 21 2021
+Time source is hardware calendar
+``` 
+``` 
+S2(config)#ntp server 10.22.0.1
+S2#show clock detail 
+*22:22:2.442 UTC Tue Dec 21 2021
+Time source is hardware calendar
+```   
+![](pic/S1.png)   
+![](pic/S2.png) 
